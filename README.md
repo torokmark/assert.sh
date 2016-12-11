@@ -1,6 +1,7 @@
 # assert.sh
 
 Assert.sh is intended to give the assertion mechanism to shell scripts with well-known assert functions like `assert_eq`, `assert_array_eq`, or `assert_empty`.
+Inspired by [Assert class of JUnit](http://junit.sourceforge.net/javadoc/org/junit/Assert.html)
 
 ### Install & Usage
 
@@ -14,13 +15,17 @@ Assert.sh is intended to give the assertion mechanism to shell scripts with well
 
 1. Clone the repository
 
-  git clone https://github.com/torokmark/assert.sh.git
+```sh
+git clone https://github.com/torokmark/assert.sh.git
+```
 
 > Or copy the assert.sh where your project is located.
 
 2. Edit the script where you would like to use asserts and paste the next line on the top:
 
-  source './assert.sh'
+```sh
+source './assert.sh'
+```
 
 3. Now assert functions are available for use.
 
@@ -43,8 +48,28 @@ assert_eq "hello" "world"
 
 ### How to write tests
 
+Example:
 
+```sh
+source "./assert.sh"
 
+local expected actual
+expected="Hello"
+actual=get_world
+assert_eq "$expected" "$actual"
+if [ "$?" == 0 ]; then
+  log_success "assert_eq returns 0 if two words are equal"
+else
+  log_failure "assert_eq should return 0"
+fi
+```
 
+If the return status (`$?`) of `assert_eq` is equal to `0`, which is considered true according to the convention.
+If the assert function returns `1`, the expected and actual values are differred.
+
+### Contribution
+
+1. Fork it!
+2. Use it!
 
 
