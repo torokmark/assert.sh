@@ -55,7 +55,7 @@ source "./assert.sh"
 
 local expected actual
 expected="Hello"
-actual=get_world
+actual="Hello"
 assert_eq "$expected" "$actual"
 if [ "$?" == 0 ]; then
   log_success "assert_eq returns 0 if two words are equal"
