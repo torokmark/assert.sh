@@ -9,7 +9,7 @@
 ##   with the common assert functions
 ## Function list based on:
 ##   http://junit.sourceforge.net/javadoc/org/junit/Assert.html
-## Log methods : inspired by this blog
+## Log methods : inspired by
 ##	- https://natelandau.com/bash-scripting-utilities/
 ## author: Mark Torok
 ##
