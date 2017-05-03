@@ -55,6 +55,17 @@ source "./assert.sh"
 
 local expected actual
 expected="Hello"
+actual="World!"
+assert_eq "$expected" "$actual" "not equivalent!"
+# => x Hello == World :: not equivalent! 
+```
+
+
+```sh
+source "./assert.sh"
+
+local expected actual
+expected="Hello"
 actual="Hello"
 assert_eq "$expected" "$actual"
 if [ "$?" == 0 ]; then
