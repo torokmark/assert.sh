@@ -171,8 +171,8 @@ assert_empty() {
 
   actual="$1"
 
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
+  if [ "$#" -ge 2 ]; then
+    msg="$2"
   fi
 
   assert_eq "" "$actual" "$msg"
@@ -185,8 +185,8 @@ assert_not_empty() {
 
   actual="$1"
 
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
+  if [ "$#" -ge 2 ]; then
+    msg="$2"
   fi
 
   assert_not_eq "" "$actual" "$msg"
