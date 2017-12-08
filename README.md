@@ -78,12 +78,6 @@ fi
 If the return status (`$?`) of `assert_eq` is equal to `0`, which is considered true according to the convention.
 If the assert function returns `1`, the expected and actual values are differred.
 
-### Contribution
 
-1. Fork it ( https://github.com/[my-github-username]/assert.sh/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create a new Pull Request
 
 
