@@ -13,7 +13,7 @@ Inspired by [Assert class of JUnit](http://junit.sourceforge.net/javadoc/org/jun
 # => 1
 ```
 
-1. Clone the repository
+I. Clone the repository
 
 ```sh
 git clone https://github.com/torokmark/assert.sh.git
@@ -21,13 +21,13 @@ git clone https://github.com/torokmark/assert.sh.git
 
 > Or copy the assert.sh where your project is located.
 
-2. Edit the script where you would like to use asserts and paste the next line on the top:
+II. Edit the script where you would like to use asserts and paste the next line on the top:
 
 ```sh
 source './assert.sh'
 ```
 
-3. Now assert functions are available for use.
+III. Now assert functions are available for use.
 
 ```sh
 assert_eq "hello" "world"
