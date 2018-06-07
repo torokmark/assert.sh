@@ -48,6 +48,7 @@ assert_eq() {
   fi
 
   if [ "$expected" == "$actual" ]; then
+    [ "${#msg}" -gt 0 ] && log_success "$msg" || true
     return 0
   else
     [ "${#msg}" -gt 0 ] && log_failure "$expected == $actual :: $msg" || true
@@ -65,6 +66,7 @@ assert_not_eq() {
   fi
 
   if [ ! "$expected" == "$actual" ]; then
+    [ "${#msg}" -gt 0 ] && log_success "$msg" || true
     return 0
   else
     [ "${#msg}" -gt 0 ] && log_failure "$expected != $actual :: $msg" || true
@@ -129,6 +131,8 @@ assert_array_eq() {
 
   if [ "$return_code" == 1 ]; then
     [ "${#msg}" -gt 0 ] && log_failure "(${expected[*]}) != (${actual[*]}) :: $msg" || true
+  else
+    [ "${#msg}" -gt 0 ] && log_success "$msg" || true
   fi
 
   return "$return_code"
@@ -160,6 +164,8 @@ assert_array_not_eq() {
 
   if [ "$return_code" == 1 ]; then
     [ "${#msg}" -gt 0 ] && log_failure "(${expected[*]}) == (${actual[*]}) :: $msg" || true
+  else
+    [ "${#msg}" -gt 0 ] && log_success "$msg" || true
   fi
 
   return "$return_code"
