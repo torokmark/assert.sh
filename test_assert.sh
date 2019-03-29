@@ -227,6 +227,45 @@ test_assert_not_empty() {
   fi
 }
 
+test_assert_contain() {
+  log_header "Test :: assert_contain"
+
+  assert_contain "haystack" "needle"
+  if [ "$?" == 1 ]; then
+    log_success "assert_contain returns 1 if the substring is not in the haystack"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if no needle is given"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack" "stack"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the haystack ends in the needle"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack" "hay"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the haystack starts with the needle"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack" "aysta"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the needle is somewhere in the middle of the haystack"
+  else
+    log_failure "assert_contain does not work"
+  fi
+}
+
 
 # test calls
 
@@ -238,3 +277,4 @@ test_assert_array_eq
 test_assert_array_not_eq
 test_assert_empty
 test_assert_not_empty
+test_assert_contain
