@@ -227,6 +227,140 @@ test_assert_not_empty() {
   fi
 }
 
+test_assert_contain() {
+  log_header "Test :: assert_contain"
+
+  assert_contain "haystack" "needle"
+  if [ "$?" == 1 ]; then
+    log_success "assert_contain returns 1 if the needle is not in the haystack"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if no needle is given"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack" "stack"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the haystack ends in the needle"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack" "hay"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the haystack starts with the needle"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack" "aysta"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the needle is somewhere in the middle of the haystack"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "foo\nbar\nhello\nworld" "foo"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the needle matches the first haystack line"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "foo\nbar\nhello\nworld" "bar"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the needle matches the second haystack line"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "foo\nbar\nhello\nworld" "ell"
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the needle is on the third haystack line"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "foo\nbar\nhello\nworld" "barbecue"
+  if [ "$?" == 1 ]; then
+    log_success "assert_contain returns 1 if the needle is not in a multi-line haystack"
+  else
+    log_failure "assert_contain does not work"
+  fi
+}
+
+test_assert_not_contain() {
+  log_header "Test :: assert_not_contain"
+
+  assert_not_contain "haystack" "needle"
+  if [ "$?" == 0 ]; then
+    log_success "assert_not_contain returns 0 if the needle is not in the haystack"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "haystack"
+  if [ "$?" == 0 ]; then
+    log_success "assert_not_contain returns 0 if no needle is given"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "haystack" "stack"
+  if [ "$?" == 1 ]; then
+    log_success "assert_not_contain returns 1 if the haystack ends in the needle"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "haystack" "hay"
+  if [ "$?" == 1 ]; then
+    log_success "assert_not_contain returns 1 if the haystack starts with the needle"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "haystack" "aysta"
+  if [ "$?" == 1 ]; then
+    log_success "assert_not_contain returns 1 if the needle is somewhere in the middle of the haystack"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "foo\nbar\nhello\nworld" "foo"
+  if [ "$?" == 1 ]; then
+    log_success "assert_not_contain returns 1 if the needle matches the first haystack line"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "foo\nbar\nhello\nworld" "bar"
+  if [ "$?" == 1 ]; then
+    log_success "assert_not_contain returns 1 if the needle matches the second haystack line"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "foo\nbar\nhello\nworld" "ell"
+  if [ "$?" == 1 ]; then
+    log_success "assert_not_contain returns 1 if the needle is on the third haystack line"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "foo\nbar\nhello\nworld" "barbecue"
+  if [ "$?" == 0 ]; then
+    log_success "assert_not_contain returns 0 if the needle is not in a multi-line haystack"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+}
+
 
 # test calls
 
@@ -238,3 +372,5 @@ test_assert_array_eq
 test_assert_array_not_eq
 test_assert_empty
 test_assert_not_empty
+test_assert_contain
+test_assert_not_contain

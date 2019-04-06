@@ -27,7 +27,7 @@ BOLD=$(tput bold)
 
 log_header() {
   printf "\n${BOLD}${MAGENTA}==========  %s  ==========${NORMAL}\n" "$@" >&2
-  }
+}
 
 log_success() {
   printf "${GREEN}✔ %s${NORMAL}\n" "$@" >&2
@@ -191,4 +191,46 @@ assert_not_empty() {
 
   assert_not_eq "" "$actual" "$msg"
   return "$?"
+}
+
+assert_contain() {
+  local haystack="$1"
+  local needle="$2"
+  local msg
+
+  if [ "$#" -ge 3 ]; then
+    msg="$3"
+  fi
+
+  if [ -z "${needle:+x}" ]; then
+    return 0;
+  fi
+
+  if [ -z "${haystack##*$needle*}" ]; then
+    return 0
+  else
+    [ "${#msg}" -gt 0 ] && log_failure "$haystack doesn't contain $needle :: $msg" || true
+    return 1
+  fi
+}
+
+assert_not_contain() {
+  local haystack="$1"
+  local needle="$2"
+  local msg
+
+  if [ "$#" -ge 3 ]; then
+    msg="$3"
+  fi
+
+  if [ -z "${needle:+x}" ]; then
+    return 0;
+  fi
+
+  if [ "${haystack##*$needle*}" ]; then
+    return 0
+  else
+    [ "${#msg}" -gt 0 ] && log_failure "$haystack contains $needle :: $msg" || true
+    return 1
+  fi
 }
