@@ -361,6 +361,111 @@ test_assert_not_contain() {
   fi
 }
 
+test_assert_gt() {
+  log_header "Test :: assert_gt"
+
+  assert_gt 1 2 
+  if [ "$?" == 1 ]; then
+    log_success "assert_gt returns 1 if second param is greater than first param"
+  else
+    log_failure "assert_gt does not work"
+  fi
+
+  assert_gt 2 -1 
+  if [ "$?" == 0 ]; then
+    log_success "assert_gt returns 0 if first param is greater than second param"
+  else
+    log_failure "assert_gt does not work"
+  fi
+
+  assert_gt 2 2 
+  if [ "$?" == 1 ]; then
+    log_success "assert_gt returns 1 if two params are equal"
+  else
+    log_failure "assert_gt does not work"
+  fi
+
+
+}
+
+test_assert_ge() {
+  log_header "Test :: assert_ge"
+
+  assert_ge 1 1
+  if [ "$?" == 0 ]; then
+    log_success "assert_ge returns 0 if two params are equal"
+  else
+    log_failure "assert_ge does not work"
+  fi
+
+  assert_ge 1 2 
+  if [ "$?" == 1 ]; then
+    log_success "assert_ge returns 1 if second param is greater than first param"
+  else
+    log_failure "assert_ge does not work"
+  fi
+
+  assert_ge 2 -1 
+  if [ "$?" == 0 ]; then
+    log_success "assert_ge returns 0 if first param is greater than second param"
+  else
+    log_failure "assert_ge does not work"
+  fi
+}
+
+test_assert_lt() {
+  log_header "Test :: assert_lt"
+
+  assert_lt 2 1 
+  if [ "$?" == 1 ]; then
+    log_success "assert_lt returns 1 if second param is less than first param"
+  else
+    log_failure "assert_lt does not work"
+  fi
+
+  assert_lt -2 1
+  if [ "$?" == 0 ]; then
+    log_success "assert_lt returns 0 if first param is less than second param"
+  else
+    log_failure "assert_lt does not work"
+  fi
+
+  assert_lt 2 2 
+  if [ "$?" == 1 ]; then
+    log_success "assert_lt returns 1 if two params are equal"
+  else
+    log_failure "assert_lt does not work"
+  fi
+
+
+}
+
+test_assert_le() {
+  log_header "Test :: assert_le"
+
+  assert_le 1 1
+  if [ "$?" == 0 ]; then
+    log_success "assert_le returns 0 if two params are equal"
+  else
+    log_failure "assert_le does not work"
+  fi
+
+  assert_le 2 1
+  if [ "$?" == 1 ]; then
+    log_success "assert_le returns 1 if second param is less than first param"
+  else
+    log_failure "assert_le does not work"
+  fi
+
+  assert_le -2 1
+  if [ "$?" == 0 ]; then
+    log_success "assert_le returns 0 if first param is less than second param"
+  else
+    log_failure "assert_le does not work"
+  fi
+}
+
+
 
 # test calls
 
@@ -374,3 +479,8 @@ test_assert_empty
 test_assert_not_empty
 test_assert_contain
 test_assert_not_contain
+test_assert_gt
+test_assert_ge
+test_assert_lt
+test_assert_le
+

@@ -45,8 +45,12 @@ assert_eq "hello" "world"
 * `assert_array_not_eq` takes two arrays and return 0 if the items are not the same on the same index.
 * `assert_empty` takes a string and returns 0 if it is empty
 * `assert_not_empty` is the opposite of `assert_empty`.
-* `assert_contain` checks wether the first argument contains the second one.
-* `assert_not_contain` check wether the first argument does not contain the second one.
+* `assert_contain` checks whether the first argument contains the second one.
+* `assert_not_contain` check whether the first argument does not contain the second one.
+* `assert_gt` checks whether the first param is greater than the second.
+* `assert_ge` checks whether the first param is greator than or equal to the second one.
+* `assert_lt` checks whether the first param is less than the second one.
+* `assert_le` checks whether the first param is less than or equal to the second one.
 
 ### How to write tests
 

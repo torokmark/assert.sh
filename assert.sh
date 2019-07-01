@@ -234,3 +234,71 @@ assert_not_contain() {
     return 1
   fi
 }
+
+assert_gt() {
+  local first="$1"
+  local second="$2"
+  local msg
+
+  if [ "$#" -ge 3 ]; then
+    msg="$3"
+  fi
+
+  if [[ "$first" -gt  "$second" ]]; then
+    return 0
+  else
+    [ "${#msg}" -gt 0 ] && log_failure "$first > $second :: $msg" || true
+    return 1
+  fi
+}
+
+assert_ge() {
+  local first="$1"
+  local second="$2"
+  local msg
+
+  if [ "$#" -ge 3 ]; then
+    msg="$3"
+  fi
+
+  if [[ "$first" -ge  "$second" ]]; then
+    return 0
+  else
+    [ "${#msg}" -gt 0 ] && log_failure "$first >= $second :: $msg" || true
+    return 1
+  fi
+}
+
+assert_lt() {
+  local first="$1"
+  local second="$2"
+  local msg
+
+  if [ "$#" -ge 3 ]; then
+    msg="$3"
+  fi
+
+  if [[ "$first" -lt  "$second" ]]; then
+    return 0
+  else
+    [ "${#msg}" -gt 0 ] && log_failure "$first < $second :: $msg" || true
+    return 1
+  fi
+}
+
+assert_le() {
+  local first="$1"
+  local second="$2"
+  local msg
+
+  if [ "$#" -ge 3 ]; then
+    msg="$3"
+  fi
+
+  if [[ "$first" -le  "$second" ]]; then
+    return 0
+  else
+    [ "${#msg}" -gt 0 ] && log_failure "$first <= $second :: $msg" || true
+    return 1
+  fi
+}
