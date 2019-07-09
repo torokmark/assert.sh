@@ -19,11 +19,19 @@
 ##
 #####################################################################
 
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-MAGENTA=$(tput setaf 5)
-NORMAL=$(tput sgr0)
-BOLD=$(tput bold)
+if command -v tput &>/dev/null; then
+  RED=$(tput setaf 1)
+  GREEN=$(tput setaf 2)
+  MAGENTA=$(tput setaf 5)
+  NORMAL=$(tput sgr0)
+  BOLD=$(tput bold)
+else
+  RED=
+  GREEN=
+  MAGENTA=
+  NORMAL=
+  BOLD=
+fi
 
 log_header() {
   printf "\n${BOLD}${MAGENTA}==========  %s  ==========${NORMAL}\n" "$@" >&2
