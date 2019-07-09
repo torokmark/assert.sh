@@ -26,11 +26,11 @@ if command -v tput &>/dev/null; then
   NORMAL=$(tput sgr0)
   BOLD=$(tput bold)
 else
-  RED=
-  GREEN=
-  MAGENTA=
-  NORMAL=
-  BOLD=
+  RED=$(echo -en "\e[31m")
+  GREEN=$(echo -en "\e[32m")
+  MAGENTA=$(echo -en "\e[35m")
+  NORMAL=$(echo -en "\e[00m")
+  BOLD=$(echo -en "\e[01m")
 fi
 
 log_header() {
