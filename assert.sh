@@ -19,7 +19,7 @@
 ##
 #####################################################################
 
-if command -v tput &>/dev/null; then
+if command -v tput &>/dev/null && tty -s; then
   RED=$(tput setaf 1)
   GREEN=$(tput setaf 2)
   MAGENTA=$(tput setaf 5)
