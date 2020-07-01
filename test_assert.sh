@@ -465,6 +465,77 @@ test_assert_le() {
   fi
 }
 
+test_assert_file_exist() {
+  log_header "Test :: assert_file_exist"
+
+  local tmp_existing_file="tmp_test_file"
+  local tmp_non_existent_fle="tmp_should_not_exist_file"
+  local tmp_existing_dir="tmp_test_dir"
+
+  # ci-before
+  echo "A test file" > "$tmp_existing_file"
+  mkdir "$tmp_existing_dir"
+
+  assert_file_exist "$tmp_existing_file"
+  if [ "$?" == 0 ]; then
+    log_success "assert_file_exist returns 0 if param is existing file"
+  else
+    log_failure "assert_file_exist does not work"
+  fi
+
+  assert_file_exist "$tmp_non_existent_fle"
+  if [ "$?" == 1 ]; then
+    log_success "assert_file_exist returns 1 if param is not existing path"
+  else
+    log_failure "assert_file_exist does not work"
+  fi
+
+  assert_file_exist "$tmp_existing_dir"
+  if [ "$?" == 1 ]; then
+    log_success "assert_file_exist returns 1 if param is a existing directory"
+  else
+    log_failure "assert_file_exist does not work"
+  fi
+
+  # ci-after
+  rm -rf "$tmp_existing_file" "$tmp_existing_dir"
+}
+
+test_assert_file_not_exist() {
+  log_header "Test :: assert_file_not_exist"
+
+  local tmp_existing_file="tmp_test_file"
+  local tmp_non_existent_fle="tmp_should_not_exist_file"
+  local tmp_existing_dir="tmp_test_dir"
+
+  # ci-before
+  echo "A test file" > "$tmp_existing_file"
+  mkdir "$tmp_existing_dir"
+
+  assert_file_not_exist "$tmp_non_existent_fle"
+  if [ "$?" == 0 ]; then
+    log_success "assert_file_not_exist returns 0 if param is non existing file"
+  else
+    log_failure "assert_file_not_exist does not work"
+  fi
+
+  assert_file_not_exist "$tmp_existing_dir"
+  if [ "$?" == 0 ]; then
+    log_success "assert_file_not_exist returns 1 if param is a existing directory"
+  else
+    log_failure "assert_file_not_exist does not work"
+  fi
+
+  assert_file_not_exist "$tmp_existing_file"
+  if [ "$?" == 1 ]; then
+    log_success "assert_file_not_exist returns 1 if param is a existing file"
+  else
+    log_failure "assert_file_not_exist does not work"
+  fi
+
+  # ci-after
+  rm -rf "$tmp_existing_file" "$tmp_existing_dir"
+}
 
 
 # test calls
@@ -483,4 +554,5 @@ test_assert_gt
 test_assert_ge
 test_assert_lt
 test_assert_le
-
+test_assert_file_exist
+test_assert_file_not_exist

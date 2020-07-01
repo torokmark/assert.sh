@@ -310,3 +310,35 @@ assert_le() {
     return 1
   fi
 }
+
+assert_file_exist() {
+    local first="$1"
+    local msg
+
+    if [ "$#" -ge 2 ]; then
+        msg="$2"
+    fi
+
+    if [[ -f  "$first" ]]; then
+      return 0
+    else
+      [ "${#msg}" -gt 0 ] && log_failure "$first ! exist :: $msg" || true
+      return 1
+    fi
+}
+
+assert_file_not_exist() {
+    local first="$1"
+    local msg
+
+    if [ "$#" -ge 2 ]; then
+        msg="$2"
+    fi
+
+    if [[ ! -f  "$first" ]]; then
+      return 0
+    else
+      [ "${#msg}" -gt 0 ] && log_failure "$first exists :: $msg" || true
+      return 1
+    fi
+}
