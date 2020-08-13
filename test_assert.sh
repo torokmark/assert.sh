@@ -13,7 +13,9 @@
 ##
 #####################################################################
 
-source "./assert.sh"
+DIR_TESTS=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+source "$DIR_TESTS/assert.sh"
 
 log_header "Test assert : test_assert.sh"
 
