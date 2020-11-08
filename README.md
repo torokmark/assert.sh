@@ -1,5 +1,7 @@
 # assert.sh
 
+[![Build Status](https://travis-ci.com/torokmark/assert.sh.svg?branch=master)](https://travis-ci.com/torokmark/assert.sh)
+
 Assert.sh is intended to give the assertion mechanism to shell scripts with well-known assert functions like `assert_eq`, `assert_array_eq`, or `assert_empty`.
 Inspired by [Assert class of JUnit](http://junit.sourceforge.net/javadoc/org/junit/Assert.html)
 
