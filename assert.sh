@@ -49,11 +49,7 @@ log_failure() {
 assert_eq() {
   local expected="$1"
   local actual="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
   if [ "$expected" == "$actual" ]; then
     return 0
@@ -66,11 +62,7 @@ assert_eq() {
 assert_not_eq() {
   local expected="$1"
   local actual="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
   if [ ! "$expected" == "$actual" ]; then
     return 0
@@ -81,28 +73,16 @@ assert_not_eq() {
 }
 
 assert_true() {
-  local actual
-  local msg
-
-  actual="$1"
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local actual="$1"
+  local msg="${3-}"
 
   assert_eq true "$actual" "$msg"
   return "$?"
 }
 
 assert_false() {
-  local actual
-  local msg
-
-  actual="$1"
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local actual="$1"
+  local msg="${3-}"
 
   assert_eq false "$actual" "$msg"
   return "$?"
@@ -110,19 +90,15 @@ assert_false() {
 
 assert_array_eq() {
 
-  declare -a expected=("${!1}")
+  declare -a expected=("${!1-}")
   # echo "AAE ${expected[@]}"
 
   declare -a actual=("${!2}")
   # echo "AAE ${actual[@]}"
 
-  local msg
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
-  local return_code
-  return_code=0
+  local return_code=0
   if [ ! "${#expected[@]}" == "${#actual[@]}" ]; then
     return_code=1
   fi
@@ -144,16 +120,12 @@ assert_array_eq() {
 
 assert_array_not_eq() {
 
-  declare -a expected=("${!1}")
+  declare -a expected=("${!1-}")
   declare -a actual=("${!2}")
 
-  local msg
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
-  local return_code
-  return_code=1
+  local return_code=1
   if [ ! "${#expected[@]}" == "${#actual[@]}" ]; then
     return_code=0
   fi
@@ -174,28 +146,16 @@ assert_array_not_eq() {
 }
 
 assert_empty() {
-  local actual
-  local msg
-
-  actual="$1"
-
-  if [ "$#" -ge 2 ]; then
-    msg="$2"
-  fi
+  local actual=$1
+  local msg="${2-}"
 
   assert_eq "" "$actual" "$msg"
   return "$?"
 }
 
 assert_not_empty() {
-  local actual
-  local msg
-
-  actual="$1"
-
-  if [ "$#" -ge 2 ]; then
-    msg="$2"
-  fi
+  local actual=$1
+  local msg="${2-}"
 
   assert_not_eq "" "$actual" "$msg"
   return "$?"
@@ -203,12 +163,8 @@ assert_not_empty() {
 
 assert_contain() {
   local haystack="$1"
-  local needle="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local needle="${2-}"
+  local msg="${3-}"
 
   if [ -z "${needle:+x}" ]; then
     return 0;
@@ -224,12 +180,8 @@ assert_contain() {
 
 assert_not_contain() {
   local haystack="$1"
-  local needle="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local needle="${2-}"
+  local msg="${3-}"
 
   if [ -z "${needle:+x}" ]; then
     return 0;
@@ -246,11 +198,7 @@ assert_not_contain() {
 assert_gt() {
   local first="$1"
   local second="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
   if [[ "$first" -gt  "$second" ]]; then
     return 0
@@ -263,11 +211,7 @@ assert_gt() {
 assert_ge() {
   local first="$1"
   local second="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
   if [[ "$first" -ge  "$second" ]]; then
     return 0
@@ -280,11 +224,7 @@ assert_ge() {
 assert_lt() {
   local first="$1"
   local second="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
   if [[ "$first" -lt  "$second" ]]; then
     return 0
@@ -297,11 +237,7 @@ assert_lt() {
 assert_le() {
   local first="$1"
   local second="$2"
-  local msg
-
-  if [ "$#" -ge 3 ]; then
-    msg="$3"
-  fi
+  local msg="${3-}"
 
   if [[ "$first" -le  "$second" ]]; then
     return 0
