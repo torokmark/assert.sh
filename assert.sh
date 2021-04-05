@@ -74,7 +74,7 @@ assert_not_eq() {
 
 assert_true() {
   local actual="$1"
-  local msg="${3-}"
+  local msg="${2-}"
 
   assert_eq true "$actual" "$msg"
   return "$?"
@@ -82,7 +82,7 @@ assert_true() {
 
 assert_false() {
   local actual="$1"
-  local msg="${3-}"
+  local msg="${2-}"
 
   assert_eq false "$actual" "$msg"
   return "$?"
