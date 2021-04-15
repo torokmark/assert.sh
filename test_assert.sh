@@ -296,6 +296,27 @@ test_assert_contain() {
   else
     log_failure "assert_contain does not work"
   fi
+
+  assert_contain "" "needle"
+  if [ "$?" == 1 ]; then
+    log_success "assert_contain returns 1 if the haystack is an empty string"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "haystack" ""
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the needle is an empty string"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain "" ""
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the haystack and needle are empty strings"
+  else
+    log_failure "assert_contain does not work"
+  fi
 }
 
 test_assert_not_contain() {
@@ -360,6 +381,28 @@ test_assert_not_contain() {
   assert_not_contain "foo\nbar\nhello\nworld" "barbecue"
   if [ "$?" == 0 ]; then
     log_success "assert_not_contain returns 0 if the needle is not in a multi-line haystack"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+#  assert_not_contain haystack needle
+  assert_not_contain "" "needle"
+  if [ "$?" == 0 ]; then
+    log_success "assert_not_contain returns 0 if the haystack is an empty string"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "haystack" ""
+  if [ "$?" == 0 ]; then
+    log_success "assert_not_contain returns 1 if the needle is an empty string"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "" ""
+  if [ "$?" == 1 ]; then
+    log_success "assert_not_contain returns 1 if the haystack and needle are empty strings"
   else
     log_failure "assert_not_contain does not work"
   fi
@@ -469,6 +512,77 @@ test_assert_le() {
   fi
 }
 
+test_assert_file_exist() {
+  log_header "Test :: assert_file_exist"
+
+  local tmp_existing_file="tmp_test_file"
+  local tmp_non_existent_fle="tmp_should_not_exist_file"
+  local tmp_existing_dir="tmp_test_dir"
+
+  # ci-before
+  echo "A test file" > "$tmp_existing_file"
+  mkdir "$tmp_existing_dir"
+
+  assert_file_exist "$tmp_existing_file"
+  if [ "$?" == 0 ]; then
+    log_success "assert_file_exist returns 0 if param is existing file"
+  else
+    log_failure "assert_file_exist does not work"
+  fi
+
+  assert_file_exist "$tmp_non_existent_fle"
+  if [ "$?" == 1 ]; then
+    log_success "assert_file_exist returns 1 if param is not existing path"
+  else
+    log_failure "assert_file_exist does not work"
+  fi
+
+  assert_file_exist "$tmp_existing_dir"
+  if [ "$?" == 1 ]; then
+    log_success "assert_file_exist returns 1 if param is a existing directory"
+  else
+    log_failure "assert_file_exist does not work"
+  fi
+
+  # ci-after
+  rm -rf "$tmp_existing_file" "$tmp_existing_dir"
+}
+
+test_assert_file_not_exist() {
+  log_header "Test :: assert_file_not_exist"
+
+  local tmp_existing_file="tmp_test_file"
+  local tmp_non_existent_fle="tmp_should_not_exist_file"
+  local tmp_existing_dir="tmp_test_dir"
+
+  # ci-before
+  echo "A test file" > "$tmp_existing_file"
+  mkdir "$tmp_existing_dir"
+
+  assert_file_not_exist "$tmp_non_existent_fle"
+  if [ "$?" == 0 ]; then
+    log_success "assert_file_not_exist returns 0 if param is non existing file"
+  else
+    log_failure "assert_file_not_exist does not work"
+  fi
+
+  assert_file_not_exist "$tmp_existing_dir"
+  if [ "$?" == 0 ]; then
+    log_success "assert_file_not_exist returns 1 if param is a existing directory"
+  else
+    log_failure "assert_file_not_exist does not work"
+  fi
+
+  assert_file_not_exist "$tmp_existing_file"
+  if [ "$?" == 1 ]; then
+    log_success "assert_file_not_exist returns 1 if param is a existing file"
+  else
+    log_failure "assert_file_not_exist does not work"
+  fi
+
+  # ci-after
+  rm -rf "$tmp_existing_file" "$tmp_existing_dir"
+}
 
 
 # test calls
@@ -487,4 +601,5 @@ test_assert_gt
 test_assert_ge
 test_assert_lt
 test_assert_le
-
+test_assert_file_exist
+test_assert_file_not_exist

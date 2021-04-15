@@ -53,6 +53,8 @@ assert_eq "hello" "world"
 * `assert_ge` checks whether the first param is greator than or equal to the second one.
 * `assert_lt` checks whether the first param is less than the second one.
 * `assert_le` checks whether the first param is less than or equal to the second one.
+* `assert_file_exist` checks whether the first param is an existing regular file.
+* `assert_file_not_exist` checks whether the first param is not an existing regular file.
 
 ### How to write tests
 
