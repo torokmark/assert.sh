@@ -181,6 +181,29 @@ test_assert_array_not_eq() {
 
 }
 
+test_assert_array_contains() {
+  log_header "Test :: assert_array_contains"
+
+  input=("one" "tw oo" "333")
+  element="one"
+
+  assert_array_contains input $element  # it can be an issue on other implementation of shell
+  if [ "$?" == 0 ]; then
+    log_success "assert_array_contains returns 0 if the arrays contains the element"
+  else
+    log_failure "assert_array_contains should return 0"
+  fi
+
+  element="onee"
+  assert_array_contains input $element  # it can be an issue on other implementation of shell
+  if [ "$?" == 1 ]; then
+    log_success "assert_array_contains returns 1 if the arrays not contains the element"
+  else
+    log_failure "assert_array_contains should return 1"
+  fi
+
+}
+
 test_assert_empty() {
   log_header "Test :: assert_empty"
 
@@ -479,6 +502,7 @@ test_assert_true
 test_assert_false
 test_assert_array_eq
 test_assert_array_not_eq
+test_assert_array_contains
 test_assert_empty
 test_assert_not_empty
 test_assert_contain
