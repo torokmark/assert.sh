@@ -149,8 +149,7 @@ assert_array_contains() {
    
   declare -n map_name="$1"
   local element="$2"
-  local expected="$3"
-  local msg="${4-}"
+  local msg="${3-}"
   local contains="1"
     
   for i in "${!map_name[@]}"
@@ -160,12 +159,11 @@ assert_array_contains() {
     fi
   done
 
-  if [ "$contains" != "$expected" ]; then
+  if [ "$contains" != "0" ]; then
     [ "${#msg}" -gt 0 ] && log_failure  $msg || true
   fi
   
-  [[ $contains == $expected ]]
-  return "$?"
+  return "$contains"
 }
 
 assert_empty() {
