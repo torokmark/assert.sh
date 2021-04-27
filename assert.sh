@@ -145,6 +145,29 @@ assert_array_not_eq() {
   return "$return_code"
 }
 
+assert_array_contains() {
+   
+  declare -n map_name="$1"
+  local element="$2"
+  local expected="$3"
+  local msg="${4-}"
+  local contains="1"
+    
+  for i in "${!map_name[@]}"
+  do
+    if [[ "${map_name[$i]}" = "$element" ]]; then
+      contains="0"
+    fi
+  done
+
+  if [ "$contains" != "$expected" ]; then
+    [ "${#msg}" -gt 0 ] && log_failure  $msg || true
+  fi
+  
+  [[ $contains == $expected ]]
+  return "$?"
+}
+
 assert_empty() {
   local actual=$1
   local msg="${2-}"
