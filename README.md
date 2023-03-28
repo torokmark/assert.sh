@@ -7,11 +7,11 @@ Inspired by [Assert class of JUnit](http://junit.sourceforge.net/javadoc/org/jun
 
 ### Install & Usage
 
-```
-> # git clone https://github.com/torokmark/assert.sh.git; cd assert.sh
-> # source assert.sh
-> # assert_eq "hello" "world"
-> # echo "$?"
+```sh
+> $ git clone https://github.com/torokmark/assert.sh.git; cd assert.sh
+> $ source assert.sh
+> $ assert_eq "hello" "world"
+> $ echo "$?"
 # => 1
 ```
 
