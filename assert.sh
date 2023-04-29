@@ -170,10 +170,15 @@ assert_contain() {
     return 0;
   fi
 
+ if [ -z "${haystack:+x}" ] && [ ! -z "${needle:+x}" ]; then
+    [ "${#msg}" -gt 0 ] && log_failure "'$haystack' doesn't contain '$needle' :: $msg" || true
+    return 1;
+  fi
+
   if [ -z "${haystack##*$needle*}" ]; then
     return 0
   else
-    [ "${#msg}" -gt 0 ] && log_failure "$haystack doesn't contain $needle :: $msg" || true
+    [ "${#msg}" -gt 0 ] && log_failure "'$haystack' doesn't contain '$needle' :: $msg" || true
     return 1
   fi
 }
@@ -183,6 +188,15 @@ assert_not_contain() {
   local needle="${2-}"
   local msg="${3-}"
 
+  if [ -z "${haystack:+x}" ] && [ -z "${needle:+x}" ]; then
+    [ "${#msg}" -gt 0 ] && log_failure "'$haystack' contains '$needle' :: $msg" || true
+    return 1;
+  fi
+
+  if [ -z "${haystack:+x}" ]; then
+    return 0;
+  fi
+
   if [ -z "${needle:+x}" ]; then
     return 0;
   fi
@@ -190,7 +204,7 @@ assert_not_contain() {
   if [ "${haystack##*$needle*}" ]; then
     return 0
   else
-    [ "${#msg}" -gt 0 ] && log_failure "$haystack contains $needle :: $msg" || true
+    [ "${#msg}" -gt 0 ] && log_failure "'$haystack' contains '$needle' :: $msg" || true
     return 1
   fi
 }
@@ -245,4 +259,36 @@ assert_le() {
     [ "${#msg}" -gt 0 ] && log_failure "$first <= $second :: $msg" || true
     return 1
   fi
+}
+
+assert_file_exist() {
+    local first="$1"
+    local msg
+
+    if [ "$#" -ge 2 ]; then
+        msg="$2"
+    fi
+
+    if [[ -f  "$first" ]]; then
+      return 0
+    else
+      [ "${#msg}" -gt 0 ] && log_failure "$first ! exist :: $msg" || true
+      return 1
+    fi
+}
+
+assert_file_not_exist() {
+    local first="$1"
+    local msg
+
+    if [ "$#" -ge 2 ]; then
+        msg="$2"
+    fi
+
+    if [[ ! -f  "$first" ]]; then
+      return 0
+    else
+      [ "${#msg}" -gt 0 ] && log_failure "$first exists :: $msg" || true
+      return 1
+    fi
 }
