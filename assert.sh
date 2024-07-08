@@ -170,6 +170,10 @@ assert_contain() {
     return 0;
   fi
 
+  if [ -z "$haystack" ]; then
+    return 1;
+  fi
+
   if [ -z "${haystack##*$needle*}" ]; then
     return 0
   else
@@ -184,6 +188,10 @@ assert_not_contain() {
   local msg="${3-}"
 
   if [ -z "${needle:+x}" ]; then
+    return 0;
+  fi
+
+  if [ -z "$haystack" ]; then
     return 0;
   fi
 

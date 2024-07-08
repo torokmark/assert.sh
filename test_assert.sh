@@ -296,6 +296,13 @@ test_assert_contain() {
   else
     log_failure "assert_contain does not work"
   fi
+
+  assert_contain "" "needle"
+  if [ "$?" == 1 ]; then
+    log_success "assert_contain returns 1 if the haystack is empty"
+  else
+    log_failure "assert_contain does not work"
+  fi
 }
 
 test_assert_not_contain() {
@@ -360,6 +367,13 @@ test_assert_not_contain() {
   assert_not_contain "foo\nbar\nhello\nworld" "barbecue"
   if [ "$?" == 0 ]; then
     log_success "assert_not_contain returns 0 if the needle is not in a multi-line haystack"
+  else
+    log_failure "assert_not_contain does not work"
+  fi
+
+  assert_not_contain "" "needle"
+  if [ "$?" == 0 ]; then
+    log_success "assert_not_contain returns 0 if the haystack is empty"
   else
     log_failure "assert_not_contain does not work"
   fi
