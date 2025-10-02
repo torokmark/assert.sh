@@ -248,6 +248,20 @@ test_assert_contain() {
     log_failure "assert_contain does not work"
   fi
 
+  assert_contain 
+  if [ "$?" == 1 ]; then
+    log_success "assert_contain returns 1 if the haystack is not given"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
+  assert_contain ""
+  if [ "$?" == 0 ]; then
+    log_success "assert_contain returns 0 if the haystack is empty"
+  else
+    log_failure "assert_contain does not work"
+  fi
+
   assert_contain "haystack" "stack"
   if [ "$?" == 0 ]; then
     log_success "assert_contain returns 0 if the haystack ends in the needle"
@@ -486,7 +500,6 @@ test_assert_le() {
 
 
 # test calls
-
 test_assert_eq
 test_assert_not_eq
 test_assert_true

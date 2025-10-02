@@ -162,6 +162,10 @@ assert_not_empty() {
 }
 
 assert_contain() {
+  if [ $# -lt 1 ]; then
+    return 1
+  fi
+
   local haystack="$1"
   local needle="${2-}"
   local msg="${3-}"
@@ -171,6 +175,7 @@ assert_contain() {
   fi
 
   if [ -z "$haystack" ]; then
+    [ "${#msg}" -gt 0 ] && log_failure "(\"\") is empty :: $msg" || true
     return 1;
   fi
 
