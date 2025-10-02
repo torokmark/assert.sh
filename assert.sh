@@ -170,8 +170,8 @@ assert_contain() {
     return 0;
   fi
 
-  if [ -z "$haystack" ]; then
-    return 1;
+  if ! assert_not_empty "$haystack" "$msg"; then
+    return 1
   fi
 
   if [ -z "${haystack##*$needle*}" ]; then
